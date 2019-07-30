@@ -1,0 +1,15 @@
+db:
+  url: aaaa
+  username: aaa
+  password: aaaa
+author: zhanghaitao
+packageName:
+path:
+    controller: com.greedystar.generator.controller
+    service: com.greedystar.generator.service.impl
+    interf: com.greedystar.generator.service
+    dao: com.greedystar.generator.dao
+    entity: com.greedystar.generator.entity
+    mapper: mapper
+server:
+  port: 7777
