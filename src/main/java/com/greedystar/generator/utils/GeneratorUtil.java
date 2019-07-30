@@ -13,6 +13,25 @@ import java.util.List;
  */
 public class GeneratorUtil {
 
+    public static String getPageSelectByConditionWhere(List<ColumnInfo> infos,String className){
+        StringBuilder sb = new StringBuilder();
+        for (ColumnInfo info:infos) {
+            sb.append("    ");
+            sb.append("    ");
+            sb.append("<if test=");
+            sb.append("\"");
+            sb.append("className.");
+            sb.append(info.getPropertyName());
+            sb.append("!= null\" >").append("\n");
+            sb.append("    ");
+            sb.append("    ");
+            sb.append("AND  ").append(info.getColumnName()+"="+"#{"+className+"."+info.getPropertyName() +"}").append("\n");
+            sb.append("    ");
+            sb.append("    ");
+            sb.append("</if>").append("\n");
+        }
+        return sb.toString();
+    }
     public static String getSelectByConditionWhere(List<ColumnInfo> infos){
         StringBuilder sb = new StringBuilder();
         for (ColumnInfo info:infos) {

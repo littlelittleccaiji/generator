@@ -12,7 +12,11 @@ import java.util.List;
 @Mapper
 public interface ${ClassName}Dao {
 
+  Integer selectCountByCondition(${ClassName} ${EntityName});
+
   List<${ClassName}> selectByCondition(${ClassName} ${EntityName});
+
+  List<${ClassName}> pageQuery(@Param("startIndex") Integer startIndex, @Param("pageNo") Integer pageNo,@Param("${EntityName}") ${ClassName} ${EntityName});
 
   int insert(@Param("${EntityName}")${ClassName} ${EntityName});
 

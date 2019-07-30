@@ -16,12 +16,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Main {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-    }
 //    public static void main(String[] args) {
-//        single();
+//        SpringApplication.run(Main.class, args);
 //    }
+    public static void main(String[] args) {
+        single();
+    }
 
 //    public static void many2many() {
 //        Invoker invoker = new Many2ManyInvoker.Builder()
@@ -49,8 +49,8 @@ public class Main {
 
     public static void single() {
         Invoker invoker = new SingleInvoker.Builder()
-                .setTableName("t_gift_goods")
-                .setClassName("GiftGoods")
+                .setTableName("t_user")
+                .setClassName("user")
                 .build();
         invoker.execute();
     }

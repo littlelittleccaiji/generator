@@ -50,10 +50,17 @@ public class MapperTask extends AbstractTask {
         mapperData.put("EntityName", StringUtil.firstToLowerCase(className));
         mapperData.put("TableName", tableName);
         mapperData.put("InsertProperties", GeneratorUtil.generateMapperInsertProperties(tableInfos,StringUtil.firstToLowerCase(className)));
-        mapperData.put("PrimaryKey", getPrimaryKeyColumnInfo(tableInfos).getColumnName());
-        mapperData.put("WhereId", "#{" + getPrimaryKeyColumnInfo(tableInfos).getPropertyName() + "}");
+        if(getPrimaryKeyColumnInfo(tableInfos)!=null){
+            mapperData.put("PrimaryKey", getPrimaryKeyColumnInfo(tableInfos).getColumnName());
+        }
+        if(getPrimaryKeyColumnInfo(tableInfos)!=null){
+            mapperData.put("WhereId", "#{" + getPrimaryKeyColumnInfo(tableInfos).getPropertyName() + "}");
+        }
         mapperData.put("Id", "#{id}");
         mapperData.put("whereCondition", GeneratorUtil.getSelectByConditionWhere(tableInfos));
+        mapperData.put("pageWhereCondition", GeneratorUtil.getPageSelectByConditionWhere(tableInfos,StringUtil.firstToLowerCase(className)));
+        mapperData.put("startIndex","#{startIndex}");
+        mapperData.put("pageSize","#{pageSize}");
         if (!StringUtil.isBlank(parentForeignKey)) { // 多对多
             mapperData.put("ColumnMap", GeneratorUtil.generateMapperColumnMap(tableName, parentTableName, tableInfos, parentTableInfos, StringUtil.firstToLowerCase(parentClassName)));
             mapperData.put("ResultMap", GeneratorUtil.generateMapperResultMap(tableInfos));

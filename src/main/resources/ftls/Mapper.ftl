@@ -16,6 +16,24 @@
         ${Joins}
     </sql>
 
+    <select id="pageQuery" resultMap="${EntityName}ResultMap">
+        SELECT
+        <include refid="${EntityName}Columns" />
+        FROM ${TableName} <include refid="${EntityName}Joins" />
+        <where>
+            ${pageWhereCondition}
+        </where>
+        order by id desc limit ${startIndex},${pageSize};
+    </select>
+
+    <select id="selectCountByCondition" resultMap="${EntityName}ResultMap">
+        SELECT
+        count(1)
+        FROM ${TableName} <include refid="${EntityName}Joins" />
+        <where>
+            ${whereCondition}
+        </where>
+    </select>
     <select id="selectByCondition" resultMap="${EntityName}ResultMap">
         SELECT
         <include refid="${EntityName}Columns" />
