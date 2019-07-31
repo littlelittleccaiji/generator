@@ -49,8 +49,8 @@ public class Main {
 
     public static void single() {
         Invoker invoker = new SingleInvoker.Builder()
-                .setTableName("t_user")
-                .setClassName("user")
+                .setTableName("t_sign_company")
+                .setClassName("SignCompany")
                 .build();
         invoker.execute();
     }

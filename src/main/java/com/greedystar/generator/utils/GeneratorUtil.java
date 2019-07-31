@@ -20,7 +20,7 @@ public class GeneratorUtil {
             sb.append("    ");
             sb.append("<if test=");
             sb.append("\"");
-            sb.append("className.");
+            sb.append(className+".");
             sb.append(info.getPropertyName());
             sb.append("!= null\" >").append("\n");
             sb.append("    ");
