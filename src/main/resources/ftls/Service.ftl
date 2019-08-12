@@ -1,6 +1,6 @@
 package ${BasePackageName}${ServicePackageName};
 
-import ${BasePackageName}${DaoPackageName}.${ClassName}Dao;
+import ${BasePackageName}${DaoPackageName}.${ClassName}Mapper;
 import ${BasePackageName}${EntityPackageName}.${ClassName};
 ${InterfaceImport}
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +14,46 @@ import java.util.List;
 */
 @Service
 public class ${ClassName}Service${Impl} {
+
 @Autowired
-private ${ClassName}Dao ${EntityName}Dao;
+private ${ClassName}Mapper ${EntityName}Mapper;
 ${Override}
 public List<${ClassName}> selectByCondition(${ClassName} ${EntityName}){
-return ${EntityName}Dao.selectByCondition(${EntityName});
+return ${EntityName}Mapper.selectByCondition(${EntityName});
 }
 
-${Override}
 public int insert(${ClassName} ${EntityName}) {
-return ${EntityName}Dao.insert(${EntityName});
+return ${EntityName}Mapper.insert(${EntityName});
 }
-${Override}
 public int insertBatch(${ClassName} ${EntityName},List<${ClassName}> ${EntityName}s){
-return ${EntityName}Dao.insertBatch(${EntityName},${EntityName}s);
+return ${EntityName}Mapper.insertBatch(${EntityName},${EntityName}s);
 }
-${Override}
 public int update(${ClassName} ${EntityName}) {
-return ${EntityName}Dao.update(${EntityName});
+return ${EntityName}Mapper.update(${EntityName});
 }
-${Override}
 public int delete(${ClassName} ${EntityName}) {
-return ${EntityName}Dao.delete(${EntityName});
+return ${EntityName}Mapper.delete(${EntityName});
 }
+public PageResult pageQuery(PageQueryRequest pageQueryRequest){
+    if (pageQueryRequest.getPageNo() == null || pageQueryRequest.getPageSize() == null) {
+        throw new BusinessException(ResultEnum.PARAM_ERROR);
+        }
+    if (pageQueryRequest.getPageNo() > CommonConstants.MAX_QUERY_NUM) {
+            throw new BusinessException(ResultEnum.QUERY_NUM_ERROR);
+        }
+    int pageNo = pageQueryRequest.getPageNo();
+    int pageSize = pageQueryRequest.getPageSize();
 
+    ${ClassName} ${EntityName}Condition= JSONObject.toJavaObject(pageQueryRequest.getQueryCondition(), ${ClassName}.class);
+    ${ClassName} queryCondition= ${EntityName}Condition==null?new ${ClassName}():${EntityName}Condition;
+    Integer totalCount=${EntityName}Mapper.selectCountByCondition(queryCondition);
+        if(totalCount<1){
+        throw new BusinessException(ResultEnum.NO_DATA);
+    }
+    List<${ClassName}> pageData=${EntityName}Mapper.pageQuery((pageNo - 1) * pageSize, pageSize,queryCondition);
+    PageResult result = new PageResult(pageQueryRequest.getPageSize(), pageQueryRequest.getPageNo());
+    result.setTotal(totalCount);
+    result.setData(pageData);
+    return result;
+    }
 }

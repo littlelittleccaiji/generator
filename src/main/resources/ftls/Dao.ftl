@@ -10,13 +10,13 @@ import java.util.List;
  * Date  ${Date}
  */
 @Mapper
-public interface ${ClassName}Dao {
+public interface ${ClassName}Mapper {
 
   Integer selectCountByCondition(${ClassName} ${EntityName});
 
   List<${ClassName}> selectByCondition(${ClassName} ${EntityName});
 
-  List<${ClassName}> pageQuery(@Param("startIndex") Integer startIndex, @Param("pageNo") Integer pageNo,@Param("${EntityName}") ${ClassName} ${EntityName});
+  List<${ClassName}> pageQuery(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize,@Param("${EntityName}") ${ClassName} ${EntityName});
 
   int insert(@Param("${EntityName}")${ClassName} ${EntityName});
 

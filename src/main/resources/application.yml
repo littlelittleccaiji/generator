@@ -1,15 +1,15 @@
 db:
-  url: aaading=utf8&useSSL=false
+  url: aaaaaacterEncoding=utf8&useSSL=false
   username: aaa
-  password: aaaa#
+  password: aaaa
 author: zhanghaitao
 packageName:
 path:
-    controller: com.greedystar.generator.controller
-    service: com.greedystar.generator.service.impl
-    interf: com.greedystar.generator.service
-    dao: com.greedystar.generator.dao
-    entity: com.greedystar.generator.entity
+    controller: com.mi.youpin.tuishouserver.controller
+    service: com.mi.youpin.tuishouserver.service.impl
+    interf: com.mi.youpin.tuishouserver.service
+    dao: com.mi.youpin.tuishouserver.mapper
+    entity: com.mi.youpin.tuishouserver.entity
     mapper: mapper
 server:
   port: 7777

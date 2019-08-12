@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${BasePackageName}${DaoPackageName}.${ClassName}Dao">
+<mapper namespace="${BasePackageName}${DaoPackageName}.${ClassName}Mapper">
 
     <resultMap id="${EntityName}ResultMap" type="${BasePackageName}${EntityPackageName}.${ClassName}">
         ${ResultMap}
@@ -26,7 +26,7 @@
         order by id desc limit ${startIndex},${pageSize};
     </select>
 
-    <select id="selectCountByCondition" resultMap="${EntityName}ResultMap">
+    <select id="selectCountByCondition" resultType="integer">
         SELECT
         count(1)
         FROM ${TableName} <include refid="${EntityName}Joins" />
@@ -50,11 +50,11 @@
     </insert>
 
     <insert id="insertBatch">
-        INSERT INTO ${TableName}(
+        INSERT INTO ${TableName}
             ${InsertProperties}
-        )
+
         VALUES
-        <foreach collection ="list" item="${EntityName}" separator =",">
+        <foreach collection ="list" item="item" separator =",">
         (
             ${InsertBatchValues}
         )

@@ -26,7 +26,7 @@ public class DaoTask extends AbstractTask {
     @Override
     public void run() throws IOException, TemplateException {
         // 生成Dao填充数据
-        System.out.println("Generating " + className + "Dao.java");
+        System.out.println("Generating " + className + "Mapper.java");
         Map<String, String> daoData = new HashMap<>();
         daoData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
         daoData.put("DaoPackageName", ConfigUtil.getConfiguration().getPath().getDao());
@@ -36,7 +36,7 @@ public class DaoTask extends AbstractTask {
         daoData.put("ClassName", className);
         daoData.put("EntityName", StringUtil.firstToLowerCase(className));
         String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(ConfigUtil.getConfiguration().getPackageName()) + StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getDao());
-        String fileName = className + "Dao.java";
+        String fileName = className + "Mapper.java";
         // 生成dao文件
         FileUtil.generateToJava(FreemarketConfigUtils.TYPE_DAO, daoData, filePath + fileName);
     }

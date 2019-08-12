@@ -1,10 +1,15 @@
 package com.greedystar.generator;
 
+import com.greedystar.generator.invoker.One2ManyInvoker;
 import com.greedystar.generator.invoker.SingleInvoker;
 import com.greedystar.generator.invoker.base.Invoker;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -14,6 +19,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ServletComponentScan
 @EnableScheduling
+@Configuration
+@ComponentScan(basePackages = {"com"})
+@MapperScan("com.mi.youpin.tuishouserver.mapper")
 public class Main {
 
 //    public static void main(String[] args) {
@@ -36,21 +44,21 @@ public class Main {
 //        invoker.execute();
 //    }
 //
-//    public static void one2many() {
-//        Invoker invoker = new One2ManyInvoker.Builder()
-//                .setTableName("user")
-//                .setClassName("User")
-//                .setParentTableName("office")
-//                .setParentClassName("Office")
-//                .setForeignKey("officeId")
-//                .build();
-//        invoker.execute();
-//    }
+    public static void one2many() {
+        Invoker invoker = new One2ManyInvoker.Builder()
+                .setTableName("t_feedback")
+                .setClassName("Feedback")
+                .setParentTableName("t_feedback_url")
+                .setParentClassName("FeedbackUrl")
+                .setForeignKey("fid")
+                .build();
+        invoker.execute();
+    }
 
     public static void single() {
         Invoker invoker = new SingleInvoker.Builder()
-                .setTableName("t_sign_company")
-                .setClassName("SignCompany")
+                .setTableName("t_feedback_url")
+                .setClassName("FeedbackUrl")
                 .build();
         invoker.execute();
     }
