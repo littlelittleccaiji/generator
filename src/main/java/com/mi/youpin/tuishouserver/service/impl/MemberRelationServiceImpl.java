@@ -1,8 +1,8 @@
-package ${BasePackageName}${ServicePackageName};
+package com.mi.youpin.tuishouserver.service.impl;
 
-import ${BasePackageName}${DaoPackageName}.${ClassName}Mapper;
-import ${BasePackageName}${EntityPackageName}.${ClassName};
-${InterfaceImport}
+import com.mi.youpin.tuishouserver.mapper.MemberRelationMapper;
+import com.mi.youpin.tuishouserver.entity.MemberRelation;
+import com.mi.youpin.tuishouserver.service.MemberRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
@@ -16,26 +16,26 @@ import com.greedystar.generator.model.Response;
 import java.util.List;
 
 /**
-* Author ${Author}
-* Date  ${Date}
+* Author zhanghaitao
+* Date  2020-12-29
 */
 @Service
-public class ${ClassName}Service${Impl} {
+public class MemberRelationServiceImpl implements MemberRelationService {
 
 @Autowired
-private ${ClassName}Mapper ${EntityName}Mapper;
+private MemberRelationMapper memberRelationMapper;
 
-public Response insert(${ClassName} ${EntityName}) {
-    ${EntityName}Mapper.insert(${EntityName});
+public Response insert(MemberRelation memberRelation) {
+    memberRelationMapper.insert(memberRelation);
     return new Response(ResultEnum.SUCCESS);
 }
 
-public Response update(${ClassName} ${EntityName}) {
-    ${EntityName}Mapper.update(${EntityName});
+public Response update(MemberRelation memberRelation) {
+    memberRelationMapper.update(memberRelation);
     return new Response(ResultEnum.SUCCESS);
 }
 public Response delete(Long id) {
-    ${EntityName}Mapper.delete(id);
+    memberRelationMapper.delete(id);
     return new Response(ResultEnum.SUCCESS);
 }
 public PageResult pageQuery(PageQueryRequest pageQueryRequest){
@@ -48,13 +48,13 @@ public PageResult pageQuery(PageQueryRequest pageQueryRequest){
     int pageNo = pageQueryRequest.getPageNo();
     int pageSize = pageQueryRequest.getPageSize();
 
-    ${ClassName} ${EntityName}Condition= JSONObject.toJavaObject(pageQueryRequest.getQueryCondition(), ${ClassName}.class);
-    ${ClassName} queryCondition= ${EntityName}Condition==null?new ${ClassName}():${EntityName}Condition;
-    Integer totalCount=${EntityName}Mapper.selectCountByCondition(queryCondition);
+    MemberRelation memberRelationCondition= JSONObject.toJavaObject(pageQueryRequest.getQueryCondition(), MemberRelation.class);
+    MemberRelation queryCondition= memberRelationCondition==null?new MemberRelation():memberRelationCondition;
+    Integer totalCount=memberRelationMapper.selectCountByCondition(queryCondition);
         if(totalCount<1){
         throw new BusinessException(ResultEnum.NO_DATA);
     }
-    List<${ClassName}> pageData=${EntityName}Mapper.pageQuery((pageNo - 1) * pageSize, pageSize,queryCondition);
+    List<MemberRelation> pageData=memberRelationMapper.pageQuery((pageNo - 1) * pageSize, pageSize,queryCondition);
     PageResult result = new PageResult(pageQueryRequest.getPageSize(), pageQueryRequest.getPageNo());
     result.setTotal(totalCount);
     result.setData(pageData);

@@ -43,7 +43,7 @@
         </where>
     </select>
 
-    <insert id="insert">
+    <insert id="insert" >
         INSERT INTO ${TableName}
             ${InsertProperties}
             ${InsertValues}
@@ -52,12 +52,11 @@
     <insert id="insertBatch">
         INSERT INTO ${TableName}
             ${InsertProperties}
-
         VALUES
         <foreach collection ="list" item="item" separator =",">
-        (
+         <trim prefix="(" suffix=")" suffixOverrides=",">
             ${InsertBatchValues}
-        )
+        </trim>
         </foreach>
     </insert>
 

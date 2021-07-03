@@ -1,7 +1,7 @@
 db:
-  url: aaaaaacterEncoding=utf8&useSSL=false
-  username: aaa
-  password: aaaa
+  url: jdbc:mysql://10.38.164.48:9696/yptuishou?useSSL=false
+  username: shop_x
+  password: grmtsH4jjSBceLPfLUkmL7eqvmOWGzwq
 author: zhanghaitao
 packageName:
 path:

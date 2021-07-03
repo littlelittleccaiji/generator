@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.youpin.tuishouserver.mapper.MerchantMapper">
+
+    <resultMap id="merchantResultMap" type="com.mi.youpin.tuishouserver.entity.Merchant">
+        <id column="merchantId" property="merchantId"/> 
+        <result column="merchantName" property="merchantName"/> 
+        <result column="sapId" property="sapId"/> 
+        <result column="createTime" property="createTime"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="merchantColumns">
+        t_merchant.merchant_id AS "merchantId",
+        t_merchant.merchant_name AS "merchantName",
+        t_merchant.sap_id AS "sapId",
+        t_merchant.create_time AS "createTime"
+    </sql>
+
+    <sql id="merchantJoins">
+        
+    </sql>
+
+    <select id="pageQuery" resultMap="merchantResultMap">
+        SELECT
+        <include refid="merchantColumns" />
+        FROM t_merchant <include refid="merchantJoins" />
+        <where>
+                    <if test="merchant.merchantId!= null" >
+        AND  merchant_id=#{merchant.merchantId}
+        </if>
+        <if test="merchant.merchantName!= null" >
+        AND  merchant_name=#{merchant.merchantName}
+        </if>
+        <if test="merchant.sapId!= null" >
+        AND  sap_id=#{merchant.sapId}
+        </if>
+        <if test="merchant.createTime!= null" >
+        AND  create_time=#{merchant.createTime}
+        </if>
+
+        </where>
+        order by id desc limit #{startIndex},#{pageSize};
+    </select>
+
+    <select id="selectCountByCondition" resultType="integer">
+        SELECT
+        count(1)
+        FROM t_merchant <include refid="merchantJoins" />
+        <where>
+                    <if test="merchantId!= null" >
+        AND  merchant_id=#{merchantId}
+        </if>
+        <if test="merchantName!= null" >
+        AND  merchant_name=#{merchantName}
+        </if>
+        <if test="sapId!= null" >
+        AND  sap_id=#{sapId}
+        </if>
+        <if test="createTime!= null" >
+        AND  create_time=#{createTime}
+        </if>
+
+        </where>
+    </select>
+    <select id="selectByCondition" resultMap="merchantResultMap">
+        SELECT
+        <include refid="merchantColumns" />
+        FROM t_merchant <include refid="merchantJoins" />
+        <where>
+                <if test="merchantId!= null" >
+        AND  merchant_id=#{merchantId}
+        </if>
+        <if test="merchantName!= null" >
+        AND  merchant_name=#{merchantName}
+        </if>
+        <if test="sapId!= null" >
+        AND  sap_id=#{sapId}
+        </if>
+        <if test="createTime!= null" >
+        AND  create_time=#{createTime}
+        </if>
+
+        </where>
+    </select>
+
+    <insert id="insert" >
+        INSERT INTO t_merchant
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="merchant.merchantId!= null" >
+        merchant_id,
+        </if>
+        <if test="merchant.merchantName!= null" >
+        merchant_name,
+        </if>
+        <if test="merchant.sapId!= null" >
+        sap_id,
+        </if>
+        <if test="merchant.createTime!= null" >
+        create_time,
+        </if>
+        </trim>
+             <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="merchant.merchantId!= null" >
+#{merchant.merchantId},
+        </if>
+        <if test="merchant.merchantName!= null" >
+#{merchant.merchantName},
+        </if>
+        <if test="merchant.sapId!= null" >
+#{merchant.sapId},
+        </if>
+        <if test="merchant.createTime!= null" >
+#{merchant.createTime},
+        </if>
+        </trim>
+
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_merchant
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="merchant.merchantId!= null" >
+        merchant_id,
+        </if>
+        <if test="merchant.merchantName!= null" >
+        merchant_name,
+        </if>
+        <if test="merchant.sapId!= null" >
+        sap_id,
+        </if>
+        <if test="merchant.createTime!= null" >
+        create_time,
+        </if>
+        </trim>
+        VALUES
+        <foreach collection ="list" item="item" separator =",">
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="item.merchantId!= null" >
+            #{item.merchantId},
+            </if>
+            <if test="item.merchantName!= null" >
+            #{item.merchantName},
+            </if>
+            <if test="item.sapId!= null" >
+            #{item.sapId},
+            </if>
+            <if test="item.createTime!= null" >
+            #{item.createTime},
+            </if>
+        </trim>
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_merchant
+        <set>
+                <if test="merchantId!= null" >
+        merchant_id=#{merchantId},
+        </if>
+        <if test="merchantName!= null" >
+        merchant_name=#{merchantName},
+        </if>
+        <if test="sapId!= null" >
+        sap_id=#{sapId},
+        </if>
+        <if test="createTime!= null" >
+        create_time=#{createTime},
+        </if>
+
+        </set>
+        WHERE merchant_id = #{merchantId}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_merchant
+        WHERE merchant_id = #{merchantId}
+    </update>
+
+</mapper>

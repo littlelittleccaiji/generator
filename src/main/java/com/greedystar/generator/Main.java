@@ -57,8 +57,8 @@ public class Main {
 
     public static void single() {
         Invoker invoker = new SingleInvoker.Builder()
-                .setTableName("t_feedback_url")
-                .setClassName("FeedbackUrl")
+                .setTableName("t_robot_seal_detail")
+                .setClassName("RobotSealDetail")
                 .build();
         invoker.execute();
     }

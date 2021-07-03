@@ -1,7 +1,7 @@
-package ${BasePackageName}${ControllerPackageName};
+package com.mi.youpin.tuishouserver.controller;
 
-import ${BasePackageName}${EntityPackageName}.${ClassName};
-import ${BasePackageName}${ServicePackageName}.${ClassName}Service;
+import com.mi.youpin.tuishouserver.entity.MemberRelation;
+import com.mi.youpin.tuishouserver.service.MemberRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,30 +13,30 @@ import com.greedystar.generator.model.Response;
 import java.util.List;
 
 /**
- * Author ${Author}
- * Date  ${Date}
+ * Author zhanghaitao
+ * Date  2020-12-29
  */
 @RestController
-@RequestMapping(value = "/${EntityName}")
-public class ${ClassName}Controller {
+@RequestMapping(value = "/memberRelation")
+public class MemberRelationController {
     @Autowired
-    private ${ClassName}Service ${EntityName}Service;
+    private MemberRelationService memberRelationService;
 
 
 
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Response insert(@RequestBody ${ClassName} ${EntityName}) {
-        return ${EntityName}Service.insert(${EntityName});
+    public Response insert(@RequestBody MemberRelation memberRelation) {
+        return memberRelationService.insert(memberRelation);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Response update(@RequestBody ${ClassName} ${EntityName}) {
-        return ${EntityName}Service.update(${EntityName});
+    public Response update(@RequestBody MemberRelation memberRelation) {
+        return memberRelationService.update(memberRelation);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Response delete(@RequestParam Long id) {
-         return ${EntityName}Service.delete(id) ;
+         return memberRelationService.delete(id) ;
     }
 }

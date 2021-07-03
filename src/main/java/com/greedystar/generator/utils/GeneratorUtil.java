@@ -72,7 +72,7 @@ public class GeneratorUtil {
         }
         sb.append("    ");
         sb.append("    ");
-        sb.append("</trim>").append("\n");
+        sb.append("</trim>");
         return sb.toString();
     }
 
@@ -106,9 +106,13 @@ public class GeneratorUtil {
             if (i != 0) {
                 sb.append("            ");
             }
+            sb.append("<if test=\"").append("item").append(".").append(infos.get(i).getPropertyName()).append("!= null\" >\n");
+            sb.append("            ");
             sb.append("#{").append("item").append(".").append(infos.get(i).getPropertyName()).append("},\n");
+            sb.append("            ");
+            sb.append("</if>\n");
         }
-        return sb.toString().substring(0, sb.toString().length() - 2);
+        return sb.toString().substring(0, sb.toString().length() -1);
     }
 
     /**

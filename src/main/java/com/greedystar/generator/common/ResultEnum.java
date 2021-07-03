@@ -7,6 +7,7 @@ package com.greedystar.generator.common;
 public enum ResultEnum {
 	UNKONW_ERROR	(-1, "未知错误"),
 	SUCCESS(0, "成功"),
+	NOT_FOUND(2, "未找到结果"),
 	ERROR(1, "失败"),
 	NO_DATA(2, "无数据"),
 	BUSY(3, "操作频繁"),

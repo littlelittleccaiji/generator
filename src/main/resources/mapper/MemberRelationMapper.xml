@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.youpin.tuishouserver.mapper.MemberRelationMapper">
+
+    <resultMap id="memberRelationResultMap" type="com.mi.youpin.tuishouserver.entity.MemberRelation">
+        <id column="uid" property="uid"/> 
+        <result column="secondUid" property="secondUid"/> 
+        <result column="thirdUid" property="thirdUid"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="memberRelationColumns">
+        t_member_relation.uid AS "uid",
+        t_member_relation.second_uid AS "secondUid",
+        t_member_relation.third_uid AS "thirdUid"
+    </sql>
+
+    <sql id="memberRelationJoins">
+        
+    </sql>
+
+    <select id="pageQuery" resultMap="memberRelationResultMap">
+        SELECT
+        <include refid="memberRelationColumns" />
+        FROM t_member_relation <include refid="memberRelationJoins" />
+        <where>
+                    <if test="memberRelation.uid!= null" >
+        AND  uid=#{memberRelation.uid}
+        </if>
+        <if test="memberRelation.secondUid!= null" >
+        AND  second_uid=#{memberRelation.secondUid}
+        </if>
+        <if test="memberRelation.thirdUid!= null" >
+        AND  third_uid=#{memberRelation.thirdUid}
+        </if>
+
+        </where>
+        order by id desc limit #{startIndex},#{pageSize};
+    </select>
+
+    <select id="selectCountByCondition" resultType="integer">
+        SELECT
+        count(1)
+        FROM t_member_relation <include refid="memberRelationJoins" />
+        <where>
+                    <if test="uid!= null" >
+        AND  uid=#{uid}
+        </if>
+        <if test="secondUid!= null" >
+        AND  second_uid=#{secondUid}
+        </if>
+        <if test="thirdUid!= null" >
+        AND  third_uid=#{thirdUid}
+        </if>
+
+        </where>
+    </select>
+    <select id="selectByCondition" resultMap="memberRelationResultMap">
+        SELECT
+        <include refid="memberRelationColumns" />
+        FROM t_member_relation <include refid="memberRelationJoins" />
+        <where>
+                <if test="uid!= null" >
+        AND  uid=#{uid}
+        </if>
+        <if test="secondUid!= null" >
+        AND  second_uid=#{secondUid}
+        </if>
+        <if test="thirdUid!= null" >
+        AND  third_uid=#{thirdUid}
+        </if>
+
+        </where>
+    </select>
+
+    <insert id="insert" >
+        INSERT INTO t_member_relation
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="memberRelation.uid!= null" >
+        uid,
+        </if>
+        <if test="memberRelation.secondUid!= null" >
+        second_uid,
+        </if>
+        <if test="memberRelation.thirdUid!= null" >
+        third_uid,
+        </if>
+        </trim>
+             <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="memberRelation.uid!= null" >
+#{memberRelation.uid},
+        </if>
+        <if test="memberRelation.secondUid!= null" >
+#{memberRelation.secondUid},
+        </if>
+        <if test="memberRelation.thirdUid!= null" >
+#{memberRelation.thirdUid},
+        </if>
+        </trim>
+
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_member_relation
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="memberRelation.uid!= null" >
+        uid,
+        </if>
+        <if test="memberRelation.secondUid!= null" >
+        second_uid,
+        </if>
+        <if test="memberRelation.thirdUid!= null" >
+        third_uid,
+        </if>
+        </trim>
+        VALUES
+        <foreach collection ="list" item="item" separator =",">
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="item.uid!= null" >
+            #{item.uid},
+            </if>
+            <if test="item.secondUid!= null" >
+            #{item.secondUid},
+            </if>
+            <if test="item.thirdUid!= null" >
+            #{item.thirdUid},
+            </if>
+        </trim>
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_member_relation
+        <set>
+                <if test="uid!= null" >
+        uid=#{uid},
+        </if>
+        <if test="secondUid!= null" >
+        second_uid=#{secondUid},
+        </if>
+        <if test="thirdUid!= null" >
+        third_uid=#{thirdUid},
+        </if>
+
+        </set>
+        WHERE uid = #{uid}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_member_relation
+        WHERE uid = #{uid}
+    </update>
+
+</mapper>

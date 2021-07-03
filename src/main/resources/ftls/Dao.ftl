@@ -24,6 +24,6 @@ public interface ${ClassName}Mapper {
 
   int update(${ClassName} ${EntityName});
 
-  int delete(${ClassName} ${EntityName});
+  int delete(Long id);
 
 }

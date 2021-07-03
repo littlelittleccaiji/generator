@@ -1,8 +1,8 @@
-package ${BasePackageName}${ServicePackageName};
+package com.mi.youpin.tuishouserver.service.impl;
 
-import ${BasePackageName}${DaoPackageName}.${ClassName}Mapper;
-import ${BasePackageName}${EntityPackageName}.${ClassName};
-${InterfaceImport}
+import com.mi.youpin.tuishouserver.mapper.MerchantMapper;
+import com.mi.youpin.tuishouserver.entity.Merchant;
+import com.mi.youpin.tuishouserver.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
@@ -16,26 +16,26 @@ import com.greedystar.generator.model.Response;
 import java.util.List;
 
 /**
-* Author ${Author}
-* Date  ${Date}
+* Author zhanghaitao
+* Date  2020-12-29
 */
 @Service
-public class ${ClassName}Service${Impl} {
+public class MerchantServiceImpl implements MerchantService {
 
 @Autowired
-private ${ClassName}Mapper ${EntityName}Mapper;
+private MerchantMapper merchantMapper;
 
-public Response insert(${ClassName} ${EntityName}) {
-    ${EntityName}Mapper.insert(${EntityName});
+public Response insert(Merchant merchant) {
+    merchantMapper.insert(merchant);
     return new Response(ResultEnum.SUCCESS);
 }
 
-public Response update(${ClassName} ${EntityName}) {
-    ${EntityName}Mapper.update(${EntityName});
+public Response update(Merchant merchant) {
+    merchantMapper.update(merchant);
     return new Response(ResultEnum.SUCCESS);
 }
 public Response delete(Long id) {
-    ${EntityName}Mapper.delete(id);
+    merchantMapper.delete(id);
     return new Response(ResultEnum.SUCCESS);
 }
 public PageResult pageQuery(PageQueryRequest pageQueryRequest){
@@ -48,13 +48,13 @@ public PageResult pageQuery(PageQueryRequest pageQueryRequest){
     int pageNo = pageQueryRequest.getPageNo();
     int pageSize = pageQueryRequest.getPageSize();
 
-    ${ClassName} ${EntityName}Condition= JSONObject.toJavaObject(pageQueryRequest.getQueryCondition(), ${ClassName}.class);
-    ${ClassName} queryCondition= ${EntityName}Condition==null?new ${ClassName}():${EntityName}Condition;
-    Integer totalCount=${EntityName}Mapper.selectCountByCondition(queryCondition);
+    Merchant merchantCondition= JSONObject.toJavaObject(pageQueryRequest.getQueryCondition(), Merchant.class);
+    Merchant queryCondition= merchantCondition==null?new Merchant():merchantCondition;
+    Integer totalCount=merchantMapper.selectCountByCondition(queryCondition);
         if(totalCount<1){
         throw new BusinessException(ResultEnum.NO_DATA);
     }
-    List<${ClassName}> pageData=${EntityName}Mapper.pageQuery((pageNo - 1) * pageSize, pageSize,queryCondition);
+    List<Merchant> pageData=merchantMapper.pageQuery((pageNo - 1) * pageSize, pageSize,queryCondition);
     PageResult result = new PageResult(pageQueryRequest.getPageSize(), pageQueryRequest.getPageNo());
     result.setTotal(totalCount);
     result.setData(pageData);

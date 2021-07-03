@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.youpin.tuishouserver.mapper.RobotSealMapper">
+
+    <resultMap id="robotSealResultMap" type="com.mi.youpin.tuishouserver.entity.RobotSeal">
+        <id column="id" property="id"/> 
+        <result column="robotId" property="robotId"/> 
+        <result column="sealType" property="sealType"/> 
+        <result column="sealReson" property="sealReson"/> 
+        <result column="sealTime" property="sealTime"/> 
+        <result column="ctime" property="ctime"/> 
+        <result column="utime" property="utime"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="robotSealColumns">
+        t_robot_seal.id AS "id",
+        t_robot_seal.robot_id AS "robotId",
+        t_robot_seal.seal_type AS "sealType",
+        t_robot_seal.seal_reson AS "sealReson",
+        t_robot_seal.seal_time AS "sealTime",
+        t_robot_seal.ctime AS "ctime",
+        t_robot_seal.utime AS "utime"
+    </sql>
+
+    <sql id="robotSealJoins">
+        
+    </sql>
+
+    <select id="pageQuery" resultMap="robotSealResultMap">
+        SELECT
+        <include refid="robotSealColumns" />
+        FROM t_robot_seal <include refid="robotSealJoins" />
+        <where>
+                    <if test="robotSeal.id!= null" >
+        AND  id=#{robotSeal.id}
+        </if>
+        <if test="robotSeal.robotId!= null" >
+        AND  robot_id=#{robotSeal.robotId}
+        </if>
+        <if test="robotSeal.sealType!= null" >
+        AND  seal_type=#{robotSeal.sealType}
+        </if>
+        <if test="robotSeal.sealReson!= null" >
+        AND  seal_reson=#{robotSeal.sealReson}
+        </if>
+        <if test="robotSeal.sealTime!= null" >
+        AND  seal_time=#{robotSeal.sealTime}
+        </if>
+        <if test="robotSeal.ctime!= null" >
+        AND  ctime=#{robotSeal.ctime}
+        </if>
+        <if test="robotSeal.utime!= null" >
+        AND  utime=#{robotSeal.utime}
+        </if>
+
+        </where>
+        order by id desc limit #{startIndex},#{pageSize};
+    </select>
+
+    <select id="selectCountByCondition" resultType="integer">
+        SELECT
+        count(1)
+        FROM t_robot_seal <include refid="robotSealJoins" />
+        <where>
+                    <if test="id!= null" >
+        AND  id=#{id}
+        </if>
+        <if test="robotId!= null" >
+        AND  robot_id=#{robotId}
+        </if>
+        <if test="sealType!= null" >
+        AND  seal_type=#{sealType}
+        </if>
+        <if test="sealReson!= null" >
+        AND  seal_reson=#{sealReson}
+        </if>
+        <if test="sealTime!= null" >
+        AND  seal_time=#{sealTime}
+        </if>
+        <if test="ctime!= null" >
+        AND  ctime=#{ctime}
+        </if>
+        <if test="utime!= null" >
+        AND  utime=#{utime}
+        </if>
+
+        </where>
+    </select>
+    <select id="selectByCondition" resultMap="robotSealResultMap">
+        SELECT
+        <include refid="robotSealColumns" />
+        FROM t_robot_seal <include refid="robotSealJoins" />
+        <where>
+                <if test="id!= null" >
+        AND  id=#{id}
+        </if>
+        <if test="robotId!= null" >
+        AND  robot_id=#{robotId}
+        </if>
+        <if test="sealType!= null" >
+        AND  seal_type=#{sealType}
+        </if>
+        <if test="sealReson!= null" >
+        AND  seal_reson=#{sealReson}
+        </if>
+        <if test="sealTime!= null" >
+        AND  seal_time=#{sealTime}
+        </if>
+        <if test="ctime!= null" >
+        AND  ctime=#{ctime}
+        </if>
+        <if test="utime!= null" >
+        AND  utime=#{utime}
+        </if>
+
+        </where>
+    </select>
+
+    <insert id="insert" >
+        INSERT INTO t_robot_seal
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="robotSeal.id!= null" >
+        id,
+        </if>
+        <if test="robotSeal.robotId!= null" >
+        robot_id,
+        </if>
+        <if test="robotSeal.sealType!= null" >
+        seal_type,
+        </if>
+        <if test="robotSeal.sealReson!= null" >
+        seal_reson,
+        </if>
+        <if test="robotSeal.sealTime!= null" >
+        seal_time,
+        </if>
+        <if test="robotSeal.ctime!= null" >
+        ctime,
+        </if>
+        <if test="robotSeal.utime!= null" >
+        utime,
+        </if>
+        </trim>
+             <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="robotSeal.id!= null" >
+#{robotSeal.id},
+        </if>
+        <if test="robotSeal.robotId!= null" >
+#{robotSeal.robotId},
+        </if>
+        <if test="robotSeal.sealType!= null" >
+#{robotSeal.sealType},
+        </if>
+        <if test="robotSeal.sealReson!= null" >
+#{robotSeal.sealReson},
+        </if>
+        <if test="robotSeal.sealTime!= null" >
+#{robotSeal.sealTime},
+        </if>
+        <if test="robotSeal.ctime!= null" >
+#{robotSeal.ctime},
+        </if>
+        <if test="robotSeal.utime!= null" >
+#{robotSeal.utime},
+        </if>
+        </trim>
+
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_robot_seal
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="robotSeal.id!= null" >
+        id,
+        </if>
+        <if test="robotSeal.robotId!= null" >
+        robot_id,
+        </if>
+        <if test="robotSeal.sealType!= null" >
+        seal_type,
+        </if>
+        <if test="robotSeal.sealReson!= null" >
+        seal_reson,
+        </if>
+        <if test="robotSeal.sealTime!= null" >
+        seal_time,
+        </if>
+        <if test="robotSeal.ctime!= null" >
+        ctime,
+        </if>
+        <if test="robotSeal.utime!= null" >
+        utime,
+        </if>
+        </trim>
+        VALUES
+        <foreach collection ="list" item="item" separator =",">
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="item.id!= null" >
+            #{item.id},
+            </if>
+            <if test="item.robotId!= null" >
+            #{item.robotId},
+            </if>
+            <if test="item.sealType!= null" >
+            #{item.sealType},
+            </if>
+            <if test="item.sealReson!= null" >
+            #{item.sealReson},
+            </if>
+            <if test="item.sealTime!= null" >
+            #{item.sealTime},
+            </if>
+            <if test="item.ctime!= null" >
+            #{item.ctime},
+            </if>
+            <if test="item.utime!= null" >
+            #{item.utime},
+            </if>
+        </trim>
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_robot_seal
+        <set>
+                <if test="id!= null" >
+        id=#{id},
+        </if>
+        <if test="robotId!= null" >
+        robot_id=#{robotId},
+        </if>
+        <if test="sealType!= null" >
+        seal_type=#{sealType},
+        </if>
+        <if test="sealReson!= null" >
+        seal_reson=#{sealReson},
+        </if>
+        <if test="sealTime!= null" >
+        seal_time=#{sealTime},
+        </if>
+        <if test="ctime!= null" >
+        ctime=#{ctime},
+        </if>
+        <if test="utime!= null" >
+        utime=#{utime},
+        </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_robot_seal
+        WHERE id = #{id}
+    </update>
+
+</mapper>

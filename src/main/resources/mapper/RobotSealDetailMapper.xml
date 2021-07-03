@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.youpin.tuishouserver.mapper.RobotSealDetailMapper">
+
+    <resultMap id="robotSealDetailResultMap" type="com.mi.youpin.tuishouserver.entity.RobotSealDetail">
+        <id column="id" property="id"/> 
+        <result column="sealId" property="sealId"/> 
+        <result column="groupId" property="groupId"/> 
+        <result column="ctime" property="ctime"/> 
+        <result column="utime" property="utime"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="robotSealDetailColumns">
+        t_robot_seal_detail.id AS "id",
+        t_robot_seal_detail.seal_id AS "sealId",
+        t_robot_seal_detail.group_id AS "groupId",
+        t_robot_seal_detail.ctime AS "ctime",
+        t_robot_seal_detail.utime AS "utime"
+    </sql>
+
+    <sql id="robotSealDetailJoins">
+        
+    </sql>
+
+    <select id="pageQuery" resultMap="robotSealDetailResultMap">
+        SELECT
+        <include refid="robotSealDetailColumns" />
+        FROM t_robot_seal_detail <include refid="robotSealDetailJoins" />
+        <where>
+                    <if test="robotSealDetail.id!= null" >
+        AND  id=#{robotSealDetail.id}
+        </if>
+        <if test="robotSealDetail.sealId!= null" >
+        AND  seal_id=#{robotSealDetail.sealId}
+        </if>
+        <if test="robotSealDetail.groupId!= null" >
+        AND  group_id=#{robotSealDetail.groupId}
+        </if>
+        <if test="robotSealDetail.ctime!= null" >
+        AND  ctime=#{robotSealDetail.ctime}
+        </if>
+        <if test="robotSealDetail.utime!= null" >
+        AND  utime=#{robotSealDetail.utime}
+        </if>
+
+        </where>
+        order by id desc limit #{startIndex},#{pageSize};
+    </select>
+
+    <select id="selectCountByCondition" resultType="integer">
+        SELECT
+        count(1)
+        FROM t_robot_seal_detail <include refid="robotSealDetailJoins" />
+        <where>
+                    <if test="id!= null" >
+        AND  id=#{id}
+        </if>
+        <if test="sealId!= null" >
+        AND  seal_id=#{sealId}
+        </if>
+        <if test="groupId!= null" >
+        AND  group_id=#{groupId}
+        </if>
+        <if test="ctime!= null" >
+        AND  ctime=#{ctime}
+        </if>
+        <if test="utime!= null" >
+        AND  utime=#{utime}
+        </if>
+
+        </where>
+    </select>
+    <select id="selectByCondition" resultMap="robotSealDetailResultMap">
+        SELECT
+        <include refid="robotSealDetailColumns" />
+        FROM t_robot_seal_detail <include refid="robotSealDetailJoins" />
+        <where>
+                <if test="id!= null" >
+        AND  id=#{id}
+        </if>
+        <if test="sealId!= null" >
+        AND  seal_id=#{sealId}
+        </if>
+        <if test="groupId!= null" >
+        AND  group_id=#{groupId}
+        </if>
+        <if test="ctime!= null" >
+        AND  ctime=#{ctime}
+        </if>
+        <if test="utime!= null" >
+        AND  utime=#{utime}
+        </if>
+
+        </where>
+    </select>
+
+    <insert id="insert" >
+        INSERT INTO t_robot_seal_detail
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="robotSealDetail.id!= null" >
+        id,
+        </if>
+        <if test="robotSealDetail.sealId!= null" >
+        seal_id,
+        </if>
+        <if test="robotSealDetail.groupId!= null" >
+        group_id,
+        </if>
+        <if test="robotSealDetail.ctime!= null" >
+        ctime,
+        </if>
+        <if test="robotSealDetail.utime!= null" >
+        utime,
+        </if>
+        </trim>
+             <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="robotSealDetail.id!= null" >
+#{robotSealDetail.id},
+        </if>
+        <if test="robotSealDetail.sealId!= null" >
+#{robotSealDetail.sealId},
+        </if>
+        <if test="robotSealDetail.groupId!= null" >
+#{robotSealDetail.groupId},
+        </if>
+        <if test="robotSealDetail.ctime!= null" >
+#{robotSealDetail.ctime},
+        </if>
+        <if test="robotSealDetail.utime!= null" >
+#{robotSealDetail.utime},
+        </if>
+        </trim>
+
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_robot_seal_detail
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="robotSealDetail.id!= null" >
+        id,
+        </if>
+        <if test="robotSealDetail.sealId!= null" >
+        seal_id,
+        </if>
+        <if test="robotSealDetail.groupId!= null" >
+        group_id,
+        </if>
+        <if test="robotSealDetail.ctime!= null" >
+        ctime,
+        </if>
+        <if test="robotSealDetail.utime!= null" >
+        utime,
+        </if>
+        </trim>
+        VALUES
+        <foreach collection ="list" item="item" separator =",">
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="item.id!= null" >
+            #{item.id},
+            </if>
+            <if test="item.sealId!= null" >
+            #{item.sealId},
+            </if>
+            <if test="item.groupId!= null" >
+            #{item.groupId},
+            </if>
+            <if test="item.ctime!= null" >
+            #{item.ctime},
+            </if>
+            <if test="item.utime!= null" >
+            #{item.utime},
+            </if>
+        </trim>
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_robot_seal_detail
+        <set>
+                <if test="id!= null" >
+        id=#{id},
+        </if>
+        <if test="sealId!= null" >
+        seal_id=#{sealId},
+        </if>
+        <if test="groupId!= null" >
+        group_id=#{groupId},
+        </if>
+        <if test="ctime!= null" >
+        ctime=#{ctime},
+        </if>
+        <if test="utime!= null" >
+        utime=#{utime},
+        </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_robot_seal_detail
+        WHERE id = #{id}
+    </update>
+
+</mapper>

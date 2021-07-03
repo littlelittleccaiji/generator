@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mi.youpin.tuishouserver.mapper.MemberCouponMapper">
+
+    <resultMap id="memberCouponResultMap" type="com.mi.youpin.tuishouserver.entity.MemberCoupon">
+        <id column="id" property="id"/> 
+        <result column="saleType" property="saleType"/> 
+        <result column="goodType" property="goodType"/> 
+        <result column="brandId" property="brandId"/> 
+        <result column="image" property="image"/> 
+        <result column="status" property="status"/> 
+        <result column="ctime" property="ctime"/> 
+        <result column="utime" property="utime"/> 
+
+        
+        
+    </resultMap>
+
+    <sql id="memberCouponColumns">
+        t_member_coupon.id AS "id",
+        t_member_coupon.sale_type AS "saleType",
+        t_member_coupon.good_type AS "goodType",
+        t_member_coupon.brand_id AS "brandId",
+        t_member_coupon.image AS "image",
+        t_member_coupon.status AS "status",
+        t_member_coupon.ctime AS "ctime",
+        t_member_coupon.utime AS "utime"
+    </sql>
+
+    <sql id="memberCouponJoins">
+        
+    </sql>
+
+    <select id="pageQuery" resultMap="memberCouponResultMap">
+        SELECT
+        <include refid="memberCouponColumns" />
+        FROM t_member_coupon <include refid="memberCouponJoins" />
+        <where>
+                    <if test="memberCoupon.id!= null" >
+        AND  id=#{memberCoupon.id}
+        </if>
+        <if test="memberCoupon.saleType!= null" >
+        AND  sale_type=#{memberCoupon.saleType}
+        </if>
+        <if test="memberCoupon.goodType!= null" >
+        AND  good_type=#{memberCoupon.goodType}
+        </if>
+        <if test="memberCoupon.brandId!= null" >
+        AND  brand_id=#{memberCoupon.brandId}
+        </if>
+        <if test="memberCoupon.image!= null" >
+        AND  image=#{memberCoupon.image}
+        </if>
+        <if test="memberCoupon.status!= null" >
+        AND  status=#{memberCoupon.status}
+        </if>
+        <if test="memberCoupon.ctime!= null" >
+        AND  ctime=#{memberCoupon.ctime}
+        </if>
+        <if test="memberCoupon.utime!= null" >
+        AND  utime=#{memberCoupon.utime}
+        </if>
+
+        </where>
+        order by id desc limit #{startIndex},#{pageSize};
+    </select>
+
+    <select id="selectCountByCondition" resultType="integer">
+        SELECT
+        count(1)
+        FROM t_member_coupon <include refid="memberCouponJoins" />
+        <where>
+                    <if test="id!= null" >
+        AND  id=#{id}
+        </if>
+        <if test="saleType!= null" >
+        AND  sale_type=#{saleType}
+        </if>
+        <if test="goodType!= null" >
+        AND  good_type=#{goodType}
+        </if>
+        <if test="brandId!= null" >
+        AND  brand_id=#{brandId}
+        </if>
+        <if test="image!= null" >
+        AND  image=#{image}
+        </if>
+        <if test="status!= null" >
+        AND  status=#{status}
+        </if>
+        <if test="ctime!= null" >
+        AND  ctime=#{ctime}
+        </if>
+        <if test="utime!= null" >
+        AND  utime=#{utime}
+        </if>
+
+        </where>
+    </select>
+    <select id="selectByCondition" resultMap="memberCouponResultMap">
+        SELECT
+        <include refid="memberCouponColumns" />
+        FROM t_member_coupon <include refid="memberCouponJoins" />
+        <where>
+                <if test="id!= null" >
+        AND  id=#{id}
+        </if>
+        <if test="saleType!= null" >
+        AND  sale_type=#{saleType}
+        </if>
+        <if test="goodType!= null" >
+        AND  good_type=#{goodType}
+        </if>
+        <if test="brandId!= null" >
+        AND  brand_id=#{brandId}
+        </if>
+        <if test="image!= null" >
+        AND  image=#{image}
+        </if>
+        <if test="status!= null" >
+        AND  status=#{status}
+        </if>
+        <if test="ctime!= null" >
+        AND  ctime=#{ctime}
+        </if>
+        <if test="utime!= null" >
+        AND  utime=#{utime}
+        </if>
+
+        </where>
+    </select>
+
+    <insert id="insert" >
+        INSERT INTO t_member_coupon
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="memberCoupon.id!= null" >
+        id,
+        </if>
+        <if test="memberCoupon.saleType!= null" >
+        sale_type,
+        </if>
+        <if test="memberCoupon.goodType!= null" >
+        good_type,
+        </if>
+        <if test="memberCoupon.brandId!= null" >
+        brand_id,
+        </if>
+        <if test="memberCoupon.image!= null" >
+        image,
+        </if>
+        <if test="memberCoupon.status!= null" >
+        status,
+        </if>
+        <if test="memberCoupon.ctime!= null" >
+        ctime,
+        </if>
+        <if test="memberCoupon.utime!= null" >
+        utime,
+        </if>
+        </trim>
+             <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="memberCoupon.id!= null" >
+#{memberCoupon.id},
+        </if>
+        <if test="memberCoupon.saleType!= null" >
+#{memberCoupon.saleType},
+        </if>
+        <if test="memberCoupon.goodType!= null" >
+#{memberCoupon.goodType},
+        </if>
+        <if test="memberCoupon.brandId!= null" >
+#{memberCoupon.brandId},
+        </if>
+        <if test="memberCoupon.image!= null" >
+#{memberCoupon.image},
+        </if>
+        <if test="memberCoupon.status!= null" >
+#{memberCoupon.status},
+        </if>
+        <if test="memberCoupon.ctime!= null" >
+#{memberCoupon.ctime},
+        </if>
+        <if test="memberCoupon.utime!= null" >
+#{memberCoupon.utime},
+        </if>
+        </trim>
+
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_member_coupon
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="memberCoupon.id!= null" >
+        id,
+        </if>
+        <if test="memberCoupon.saleType!= null" >
+        sale_type,
+        </if>
+        <if test="memberCoupon.goodType!= null" >
+        good_type,
+        </if>
+        <if test="memberCoupon.brandId!= null" >
+        brand_id,
+        </if>
+        <if test="memberCoupon.image!= null" >
+        image,
+        </if>
+        <if test="memberCoupon.status!= null" >
+        status,
+        </if>
+        <if test="memberCoupon.ctime!= null" >
+        ctime,
+        </if>
+        <if test="memberCoupon.utime!= null" >
+        utime,
+        </if>
+        </trim>
+        VALUES
+        <foreach collection ="list" item="item" separator =",">
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="item.id!= null" >
+            #{item.id},
+            </if>
+            <if test="item.saleType!= null" >
+            #{item.saleType},
+            </if>
+            <if test="item.goodType!= null" >
+            #{item.goodType},
+            </if>
+            <if test="item.brandId!= null" >
+            #{item.brandId},
+            </if>
+            <if test="item.image!= null" >
+            #{item.image},
+            </if>
+            <if test="item.status!= null" >
+            #{item.status},
+            </if>
+            <if test="item.ctime!= null" >
+            #{item.ctime},
+            </if>
+            <if test="item.utime!= null" >
+            #{item.utime},
+            </if>
+        </trim>
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE t_member_coupon
+        <set>
+                <if test="id!= null" >
+        id=#{id},
+        </if>
+        <if test="saleType!= null" >
+        sale_type=#{saleType},
+        </if>
+        <if test="goodType!= null" >
+        good_type=#{goodType},
+        </if>
+        <if test="brandId!= null" >
+        brand_id=#{brandId},
+        </if>
+        <if test="image!= null" >
+        image=#{image},
+        </if>
+        <if test="status!= null" >
+        status=#{status},
+        </if>
+        <if test="ctime!= null" >
+        ctime=#{ctime},
+        </if>
+        <if test="utime!= null" >
+        utime=#{utime},
+        </if>
+
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        DELETE FROM t_member_coupon
+        WHERE id = #{id}
+    </update>
+
+</mapper>

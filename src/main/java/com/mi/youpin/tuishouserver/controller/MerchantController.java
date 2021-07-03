@@ -1,7 +1,7 @@
-package ${BasePackageName}${ControllerPackageName};
+package com.mi.youpin.tuishouserver.controller;
 
-import ${BasePackageName}${EntityPackageName}.${ClassName};
-import ${BasePackageName}${ServicePackageName}.${ClassName}Service;
+import com.mi.youpin.tuishouserver.entity.Merchant;
+import com.mi.youpin.tuishouserver.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,30 +13,30 @@ import com.greedystar.generator.model.Response;
 import java.util.List;
 
 /**
- * Author ${Author}
- * Date  ${Date}
+ * Author zhanghaitao
+ * Date  2020-12-29
  */
 @RestController
-@RequestMapping(value = "/${EntityName}")
-public class ${ClassName}Controller {
+@RequestMapping(value = "/merchant")
+public class MerchantController {
     @Autowired
-    private ${ClassName}Service ${EntityName}Service;
+    private MerchantService merchantService;
 
 
 
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Response insert(@RequestBody ${ClassName} ${EntityName}) {
-        return ${EntityName}Service.insert(${EntityName});
+    public Response insert(@RequestBody Merchant merchant) {
+        return merchantService.insert(merchant);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Response update(@RequestBody ${ClassName} ${EntityName}) {
-        return ${EntityName}Service.update(${EntityName});
+    public Response update(@RequestBody Merchant merchant) {
+        return merchantService.update(merchant);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Response delete(@RequestParam Long id) {
-         return ${EntityName}Service.delete(id) ;
+         return merchantService.delete(id) ;
     }
 }

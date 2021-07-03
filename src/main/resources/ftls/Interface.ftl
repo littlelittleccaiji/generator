@@ -1,6 +1,7 @@
 package ${BasePackageName}${InterfacePackageName};
 
 import ${BasePackageName}${EntityPackageName}.${ClassName};
+import com.greedystar.generator.model.Response;
 
 import java.util.List;
 
@@ -10,14 +11,10 @@ import java.util.List;
  */
 public interface ${ClassName}Service {
 
-    public List<${ClassName}> selectByCondition(${ClassName} ${EntityName});
+    public Response insert(${ClassName} ${EntityName});
 
-    public int insert(${ClassName} ${EntityName});
+    public Response update(${ClassName} ${EntityName});
 
-    public int insertBatch(${ClassName} ${EntityName},List<${ClassName}> ${EntityName}s);
-
-    public int update(${ClassName} ${EntityName});
-
-    public int delete(${ClassName} ${EntityName});
+    public Response delete(Long id);
 
 }
